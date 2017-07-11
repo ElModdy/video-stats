@@ -2,10 +2,19 @@ var download = require('download-pdf');
 var pdf2Text = require('pdf2text');
 var moment = require('moment');
 var express = require('express');
+var request = require('request');
 
 var app = express();
 
 app.use(express.static(__dirname + '/public'));
+
+/*app.get('/', function(req, res) {
+
+   request('http://www.google.com', function (error, response, body) {
+      console.log('body:', body);
+   });
+   res.send('hello world');
+});*/
 
 app.listen(3002, function() {
   console.log('Server listening!');
