@@ -1,23 +1,29 @@
-var download = require('download-pdf')
 
-var pdf = "https://sfc82c600e839372f.jimcontent.com/download/version/1444428002/module/10376322412/name/Novelle%20e%20Paesi%20Valdostani.pdf"
+var download = require('download-pdf');
+var pdf2Text = require('pdf2text');
+var moment = require('moment');
+
+
+var pdf = "http://resources.motogp.com/files/results/2017/GER/MotoGP/RAC/Session.pdf"
+var pathToPdf = __dirname + "/Stats.pdf"
+
+var regTime = /RACE START [0-9]+:[0-9]+'[0-9]+/;
+var regDay = /\w+ \d+, \d+/;
+var dateFormat = "MMMM DD, YYYY HH:mm'ss";
 
 var options = {
     directory: ".",
-    filename: "leso.pdf"
+    filename: "Stats.pdf"
 }
 
 download(pdf, options, function(err){
-    var pathToPdf = __dirname + "/leso.pdf"
-    var extract = require('pdf-text-extract')
-    var options = {
-      cwd: "./"
-    }
-    extract(pathToPdf, options, function (err, pages) {
-      if (err) {
-        console.dir(err)
-        return
-      }
-      console.dir(text)
-    })
+
+    pdf2Text(pathToPdf).then(function(pages) {
+      var firstPage = pages[0].join(" ");
+      var startTime = firstPage.match(regTime)[0].substring(11, 19);
+      var startDay = firstPage.match(regDay)[0];
+      var date = startDay + " " + startTime;
+      console.log(date);
+      console.log(moment(date,dateFormat,true).format('x'));
+    });
 })
