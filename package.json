@@ -1,0 +1,28 @@
+{
+  "name": "video-stats",
+  "version": "1.0.0",
+  "description": "Diplay pilot race with his stats",
+  "main": "Server.js",
+  "dependencies": {
+    "download-pdf": "^0.1.6",
+    "express": "^4.15.3",
+    "moment": "^2.18.1",
+    "pdf2text": "^1.1.0",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElModdy/video-stats.git"
+  },
+  "author": "Modesto Davide",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElModdy/video-stats/issues"
+  },
+  "homepage": "https://github.com/ElModdy/video-stats#readme"
+}
