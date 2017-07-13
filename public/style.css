@@ -1,0 +1,15 @@
+#video-container{
+   background: red;
+   height: 100px;
+}
+
+#form-container{
+   background: blue;
+   height: 100px;
+}
+
+#select-championship-wrapper,
+#select-session-wrapper,
+#select-track-wrapper{
+   visibility: hidden;
+}

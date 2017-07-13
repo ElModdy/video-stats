@@ -49,9 +49,8 @@ function add(details, value, level, nodo){
   }
 }
 
-//EXAMPLE URL: http://localhost:3001/gettimestamp?anno=2017&pista=GER&campionato=MotoGP&sessione=RAC
 app.get('/gettimestamp', function(req, res){
-
+  console.log("request received");
   var details = [
     req.query.anno,
     req.query.pista,
