@@ -10,6 +10,13 @@
 
 #select-championship-wrapper,
 #select-session-wrapper,
-#select-track-wrapper{
+#select-track-wrapper,
+#confirm-displayed{
    visibility: hidden;
+}
+
+
+#time-selector-wrapper{
+  height: 0px;
+  overflow: hidden;
 }

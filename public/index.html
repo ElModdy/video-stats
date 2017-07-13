@@ -22,26 +22,33 @@
             <div id="select-year-wrapper">
                <label for="select-year">Select year:</label>
                <select onchange="setTrack()" class="form-control" id="select-year">
-                  <option value="">Choose year</option>
                </select>
             </div>
             <div id="select-track-wrapper">
                <label for="select-track">Select track:</label>
                <select onchange="setChampionship()" class="form-control" id="select-track">
-                  <option value="">Choose track</option>
                </select>
             </div>
             <div id="select-championship-wrapper">
                <label for="select-championship">Select championship:</label>
                <select onchange="setSession()" class="form-control" id="select-championship">
-                  <option value="">Choose championship</option>
                </select>
             </div>
             <div id="select-session-wrapper">
                <label for="select-session">Select session:</label>
                <select onchange="getTimestamp()" class="form-control" id="select-session">
-                  <option value="">Choose session</option>
                </select>
+            </div>
+            <div id="time-selector-wrapper">
+              <label for="time-selector">Attention! Start time not detected. Type it:</label>
+              <div class="input-group">
+                <input id="time-selector" onkeypress="displayTimeKeyPress()" step="0.001" type="time" class="form-control">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+              </div>
+            </div>
+            <div id="confirm-displayed">
+              <input onclick="setTime()" type="button" class="btn btn-primary" value="Confirm!">
+              <p id="display-time"></p>
             </div>
          </div>
       </div>
