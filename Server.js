@@ -50,6 +50,12 @@ function add(details, value, level, nodo){
   }
 }
 
+app.get('/corscall', function(req, res){
+   request(req.query.url, function (error, response, body) {
+     res.json(body);
+   });
+})
+
 app.get('/gettimestamp', function(req, res){
   var details = [
     req.query.anno,
