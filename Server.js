@@ -9,12 +9,12 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'));
 
-var pathToPdf = "./pdfs/Session.pdf";
+var pathToPdf = './pdfs/Session.pdf';
 
 var regTime = /RACE START [0-9]+:[0-9]+'[0-9]+/;
 var regDay = /\w+ \d+, \d+/;
 var dateFormat = "MMMM DD, YYYY HH:mm'ss";
-var dateFormatShort = "MMMM DD, YYYY";
+var dateFormatShort = 'MMMM DD, YYYY';
 
 function Nodo(value){
   this.value = value;
@@ -51,7 +51,6 @@ function add(details, value, level, nodo){
 }
 
 app.get('/gettimestamp', function(req, res){
-  console.log("request received");
   var details = [
     req.query.anno,
     req.query.pista,
@@ -61,25 +60,25 @@ app.get('/gettimestamp', function(req, res){
 
   var result = cerca(details, 0, root);
   if(result.constructor === Array){
-    var pdfURL = "http://resources.motogp.com/files/results/" + details.join("/") + "/Session.pdf";
+    var pdfURL = 'http://resources.motogp.com/files/results/' + details.join('/') + '/Session.pdf';
     download(pdfURL, {filename: pathToPdf}, function(err){
         var buffer = fs.readFileSync(pathToPdf)
-        pdf2Text(buffer).then(function(pages) {
-          var firstPages = pages[0].concat(pages[1]).join(" ");
-          if(firstPages.indexOf("RACE START") != -1){
-            var milliDate = parseInt(moment(firstPages.match(regDay)[0] + " " +
-                                            firstPages.match(regTime)[0]
-                                            .substring(11, 19),
-                                            dateFormat,
-                                            true).format('x'));
-          }else {
-            var milliDate = moment(firstPages.match(regDay)[0],
-                                    dateFormatShort,
-                                    true).format('YYYY/MM/DD');
-          }
-          add(details, milliDate, result[0], result[1]);
-          res.json(milliDate);
-      });
+          pdf2Text(buffer).then(function(pages) {
+            var firstPages = pages[0].concat(pages[1]).join(' ');
+            if(firstPages.indexOf('RACE START') != -1){
+              var milliDate = parseInt(moment(firstPages.match(regDay)[0] + ' ' +
+                                              firstPages.match(regTime)[0]
+                                              .substring(11, 19),
+                                              dateFormat,
+                                              true).format('x'));
+            }else {
+              var milliDate = firstPages.match(regDay)[0];
+            }
+            add(details, milliDate, result[0], result[1]);
+            res.json(milliDate);
+        }).catch(function(err){
+          res.json('');
+        });
     });
   }else{
     res.json(result);

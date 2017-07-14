@@ -8,15 +8,7 @@
    height: 100px;
 }
 
-#select-championship-wrapper,
-#select-session-wrapper,
-#select-track-wrapper,
-#confirm-displayed{
-   visibility: hidden;
-}
-
-
+#loading,
 #time-selector-wrapper{
-  height: 0px;
-  overflow: hidden;
+   display: none;
 }

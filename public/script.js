@@ -1,15 +1,49 @@
+var selectors;
 
 $(function(){
    setYears();
+   selectors = [
+     $('#select-year')[0],
+     $('#select-track')[0],
+     $('#select-championship')[0],
+     $('#select-session')[0]
+   ];
+
+   $('#select-session').change(function(){changeSession();});
+
+   $('.selectors').change(function(){changeSelect(this);});
 })
 
+function changeSession(){
+  $('#time-selector').val('');
+  $('#time-selector-wrapper').hide();
+  $('#button-confirm').prop('disabled', true);
+  $('#display-time').text('');
+}
+
+function changeSelect(element){
+  var indexOfElement = selectors.indexOf(element);
+  var nextElement = selectors[indexOfElement + 1];
+  var disabled = ($(element).val() != '') ? false : true;
+  $(nextElement).prop('disabled', disabled);
+  createDefaultOption(nextElement);
+}
+
+function createDefaultOption(element){
+  $(element).html('<option value="">Select ' + element.id.split('-')[1] + '</option>');
+  if(element == $('#select-session')[0]){
+    changeSession();
+  }else{
+    changeSelect(element);
+  }
+}
 
 function setYears(){
-   var yearsHtml = '<option value="">Choose year</option>';
+   var yearsHtml = '';
    for(var i=2017, thisYear = new Date().getFullYear(); i <= thisYear; i++){
       yearsHtml += '<option value="http://www.motogp.com/it/ajax/results/selector/' + i + '">' + i + '</option>';
    }
-   document.getElementById("select-year").innerHTML = yearsHtml;
+   $('#select-year').append(yearsHtml);
 }
 
 function setTrack(){
@@ -18,21 +52,14 @@ function setTrack(){
       $.ajax({url: url,
          dataType: "json",
          success: function(result){
-            var trackHtml = '<option value="">Choose track</option>';
+            var trackHtml = '';
             for(var i=1, len = Object.keys(result).length; i <= len; i++){
                trackHtml += '<option value=http://www.motogp.com' + result[i].url + '>' + result[i].title + '</option>'
             }
-            document.getElementById("select-track").innerHTML = trackHtml;
+            $("#select-track").append(trackHtml);
          }
       });
-      document.getElementById("select-track-wrapper").style.visibility = "visible";
-   }else{
-      document.getElementById("select-track-wrapper").style.visibility = "hidden";
    }
-   document.getElementById("select-championship-wrapper").style.visibility = "hidden";
-   document.getElementById("select-session-wrapper").style.visibility = "hidden";
-   document.getElementById("time-selector-wrapper").style.height = "0px";
-   document.getElementById("confirm-displayed").style.visibility = "hidden";
 }
 
 function setChampionship(){
@@ -41,20 +68,14 @@ function setChampionship(){
       $.ajax({url: url,
          dataType: "json",
          success: function(result){
-            var championshipHtml = '<option value="">Choose championship</option>';
+            var championshipHtml = '';
             for(var i=0, len = Object.keys(result).length; i < len; i++){
                championshipHtml += '<option value=http://www.motogp.com' + result[i].url + '>' + result[i].name + '</option>'
             }
-            document.getElementById("select-championship").innerHTML = championshipHtml;
+            $("#select-championship").append(championshipHtml);;
          }
       });
-      document.getElementById("select-championship-wrapper").style.visibility = "visible";
-   }else{
-      document.getElementById("select-championship-wrapper").style.visibility = "hidden";
    }
-   document.getElementById("select-session-wrapper").style.visibility = "hidden";
-   document.getElementById("time-selector-wrapper").style.height = "0px";
-   document.getElementById("confirm-displayed").style.visibility = "hidden";
 }
 
 var regURL = /[^\/][^\/]*/g;
@@ -65,7 +86,7 @@ function setSession(){
       $.ajax({url: url,
          dataType: "json",
          success: function(result){
-            var sessionHtml = '<option value="">Choose session</option>';
+            var sessionHtml = '';
             var details = [4];
             for(var i=0, len = Object.keys(result).length; i < len; i++){
                details = result[i].url.match(regURL).slice(4,8);
@@ -75,38 +96,31 @@ function setSession(){
                                              '&sessione=' + details[3] +
                                              '">' + result[i].name + '</option>'
             }
-            document.getElementById("select-session").innerHTML = sessionHtml;
+            $("#select-session").append(sessionHtml);
          }
       });
-      document.getElementById("select-session-wrapper").style.visibility = "visible";
-   }else {
-      document.getElementById("select-session-wrapper").style.visibility = "hidden";
    }
-   document.getElementById("time-selector-wrapper").style.height = "0px";
-   document.getElementById("confirm-displayed").style.visibility = "hidden";
 }
 
 var time
+
 function getTimestamp(){
-  $('#display-time').text("");
-  document.getElementById("time-selector-wrapper").style.height = "0px";
-  document.getElementById("time-selector").value = "";
-  document.getElementById("confirm-displayed").style.visibility = "hidden";
+  $('#loading').show();
    var url = $('#select-session').val();
    if(url != ""){
-      $.ajax({url: "/gettimestamp?" + url,
-        dataType: "json",
+      $.ajax({url: '/gettimestamp?' + url,
+        dataType: 'json',
         success: function(result){
-           if(typeof result == "number"){
-             console.log(result);
+          $("#loading").hide();
+           if(typeof result == 'number'){
              displayTime(result);
-             document.getElementById("time-selector-wrapper").style.height = "0px";
-           }else {
-             console.log(result);
-             document.getElementById("time-selector-wrapper").style.height = "auto";
+          }else if (result == "") {
+             $('#display-time').text('Comunication error! Retry');
+          }else {
+             $('#time-selector-wrapper').show();
            }
            time = result;
-           document.getElementById("confirm-displayed").style.visibility = "visible";
+           $('#button-confirm').prop('disabled', false);
         }
       });
     }

@@ -21,22 +21,23 @@
          <div class="col-md-4" id="form-container">
             <div id="select-year-wrapper">
                <label for="select-year">Select year:</label>
-               <select onchange="setTrack()" class="form-control" id="select-year">
+               <select onchange="setTrack()" class="form-control selectors" id="select-year">
+                  <option value="">Choose year</option>
                </select>
             </div>
             <div id="select-track-wrapper">
                <label for="select-track">Select track:</label>
-               <select onchange="setChampionship()" class="form-control" id="select-track">
+               <select  disabled="disabled" onchange="setChampionship()" class="form-control selectors" id="select-track">
                </select>
             </div>
             <div id="select-championship-wrapper">
                <label for="select-championship">Select championship:</label>
-               <select onchange="setSession()" class="form-control" id="select-championship">
+               <select  disabled="disabled" onchange="setSession()" class="form-control selectors" id="select-championship">
                </select>
             </div>
             <div id="select-session-wrapper">
                <label for="select-session">Select session:</label>
-               <select onchange="getTimestamp()" class="form-control" id="select-session">
+               <select disabled="disabled" onchange="getTimestamp()" class="form-control" id="select-session">
                </select>
             </div>
             <div id="time-selector-wrapper">
@@ -46,8 +47,9 @@
                 <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
               </div>
             </div>
+            <p id="loading">Loading...</p>
             <div id="confirm-displayed">
-              <input onclick="setTime()" type="button" class="btn btn-primary" value="Confirm!">
+              <input disabled="disabled" id="button-confirm" onclick="setTime()" type="button" class="btn btn-primary" value="Confirm!">
               <p id="display-time"></p>
             </div>
          </div>
