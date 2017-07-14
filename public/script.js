@@ -21,7 +21,7 @@ $(function(){
 var changeSession = function(){
   $('#time-selector').val('');
   $('#time-selector-wrapper').hide();
-  $('#button-confirm').prop('disabled', true);
+  $('#button-confirm').hide();
   $('#display-time').text('');
 }
 
@@ -117,31 +117,33 @@ function getTimestamp(){
   var url = $('#select-session').val();
   if(url != ""){
     $.ajax({url: '/gettimestamp?' + url,
-    dataType: 'json',
-    success: function(result){
-      $("#loading").hide();
-      if(typeof result == 'number'){
-        displayTime(result);
-      }else if (result == "") {
-        $('#display-time').text('Comunication error! Retry');
-      }else {
-        $('#time-selector-wrapper').show();
+      dataType: 'json',
+      success: function(result){
+        $("#loading").hide();
+        if(typeof result == 'number'){
+          displayTime(result);
+        }else if (result == "") {
+          $('#display-time').text('Comunication error! Retry');
+        }else {
+          $('#time-selector-wrapper').show();
+        }
+        time = result;
       }
-      time = result;
-    }
-  });
-}
+    });
+  }
 }
 
 function displayTime(result){
-  $('#display-time').text(new Date(result).toString());
-  $('#button-confirm').prop('disabled', false);
+  $('#display-time').html('<b>START:</b> ' + new Date(result).toString().substring(0, 24));
+  $('#button-confirm').show();
 }
+
+
 
 function displayTimeKeyPress(){
   var value = $('#time-selector').val();
   if(value != ''){
-    $('#display-time').text(new Date(time + " " + value).toString());
-    $('#button-confirm').prop('disabled', false);
+    $('#display-time').html('<b>START:</b> ' + new Date(time + " " + value).toString().substring(0, 24));
+    $('#button-confirm').show();
   }
 }

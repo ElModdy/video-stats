@@ -1,14 +1,10 @@
-#video-container{
-   background: red;
-   height: 100px;
-}
-
-#form-container{
-   background: blue;
-   height: 100px;
-}
-
 #loading,
-#time-selector-wrapper{
+#time-selector-wrapper,
+#button-confirm,
+#button-confirm{
    display: none;
+}
+
+#display-time{
+   padding: 0px;
 }

@@ -12,48 +12,49 @@
    <script src="script.js" ></script>
    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-md-8" id="video-container">
+   <body>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-sm-8" id="video-container">
 
-         </div>
-         <div class="col-md-4" id="form-container">
-            <div id="select-year-wrapper">
-               <label for="select-year">Select year:</label>
-               <select onchange="setTrack()" class="form-control selectors" id="select-year">
-                  <option value="">Choose year</option>
-               </select>
             </div>
-            <div id="select-track-wrapper">
-               <label for="select-track">Select track:</label>
-               <select  disabled="disabled" onchange="setChampionship()" class="form-control selectors" id="select-track">
-               </select>
-            </div>
-            <div id="select-championship-wrapper">
-               <label for="select-championship">Select championship:</label>
-               <select  disabled="disabled" onchange="setSession()" class="form-control selectors" id="select-championship">
-               </select>
-            </div>
-            <div id="select-session-wrapper">
-               <label for="select-session">Select session:</label>
-               <select disabled="disabled" onchange="getTimestamp()" class="form-control" id="select-session">
-               </select>
-            </div>
-            <div id="time-selector-wrapper">
-              <label for="time-selector">Attention! Start time not detected. Type it:</label>
-              <div class="input-group">
-                <input id="time-selector" onkeypress="displayTimeKeyPress()" step="0.001" type="time" class="form-control">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-              </div>
-            </div>
-            <p id="loading">Loading...</p>
-            <div id="confirm-displayed">
-              <input disabled="disabled" id="button-confirm" onclick="setTime()" type="button" class="btn btn-primary" value="Confirm!">
-              <p id="display-time"></p>
+               <div class="col-sm-4" id="form-container">
+                  <div class="form-group" id="select-year-wrapper">
+                     <label for="select-year">Select year:</label>
+                     <select onchange="setTrack()" class="form-control selectors" id="select-year">
+                        <option value="">Choose year</option>
+                     </select>
+                  </div>
+                  <div class="form-group" id="select-track-wrapper">
+                     <label for="select-track">Select track:</label>
+                     <select  disabled="disabled" onchange="setChampionship()" class="form-control selectors" id="select-track">
+                     </select>
+                  </div>
+                  <div class="form-group" id="select-championship-wrapper">
+                     <label for="select-championship">Select championship:</label>
+                     <select  disabled="disabled" onchange="setSession()" class="form-control selectors" id="select-championship">
+                     </select>
+                  </div>
+                  <div class="form-group" id="select-session-wrapper">
+                     <label for="select-session">Select session:</label>
+                     <select disabled="disabled" onchange="getTimestamp()" class="form-control" id="select-session">
+                     </select>
+                  </div>
+                  <div id="time-selector-wrapper">
+                    <label for="time-selector">Time not found. Type it:</label>
+                    <div class="input-group">
+                      <input id="time-selector" onkeypress="displayTimeKeyPress()" step="0.001" type="time" class="form-control">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    </div>
+                  </div>
+                  <div id="confirm-wrapper">
+                     <h4 id="loading">Loading...</h4>
+                     <p class="col-xs-9 col-sm-12 col-lg-9" id="display-time"></p>
+                     <input id="button-confirm" onclick="setTime()" type="button" class="btn btn-primary col-xs-3 col-sm-12 col-lg-3" value="OK">
+                  </div>
+               </div>
             </div>
          </div>
       </div>
-   </div>
-</body>
+   </body>
 </html>
